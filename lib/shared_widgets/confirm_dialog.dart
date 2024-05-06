@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+/// カスタマイズしたダイアログを呼び出す
+///
+/// [isCancelButtonEnable]はデフォルトでtrue
+///
+/// ただの告知文を出したいだけの場合はここをfalseにすればOKボタンのみになる
 Future<bool> showConfirmDialog(
   BuildContext context, {
   Widget? title,
   Widget? content,
   bool isCancelButtonEnable = true,
 }) async {
+  // Flutter標準のshowDialog関数を呼び出す
+  // 引数のbuilderに[ConfirmDialog]を渡す
   return await showDialog<bool>(
         context: context,
         builder: (context) {
@@ -16,9 +23,13 @@ Future<bool> showConfirmDialog(
           );
         },
       ) ??
+      // showDialogの引数`barrierDismissible`はデフォルトでtrueになっている
+      // つまりダイアログの外をタップするとダイアログを閉じるので、その場合の戻り値を
+      // falseにしておく必要がある
       false;
 }
 
+/// ダイアログの基本形
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({
     super.key,
@@ -29,6 +40,8 @@ class ConfirmDialog extends StatelessWidget {
 
   final Widget? title;
   final Widget? content;
+
+  /// キャンセルボタンの表示を切り替えできるようにするフラグ
   final bool isCancelButtonEnable;
 
   @override
