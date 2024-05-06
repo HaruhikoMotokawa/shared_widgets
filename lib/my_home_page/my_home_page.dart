@@ -164,7 +164,7 @@ class _DialogAndSnackBarButton extends StatelessWidget {
           showCustomSnackbar(context, '黄色に変更しました');
         }
       },
-      child: const Text('ダイアログ＋スナックバー'),
+      child: const Text('ダイアログ＋スナックバー：黄色に変更'),
     );
   }
 }
