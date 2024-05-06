@@ -4,6 +4,7 @@ Future<bool> showConfirmDialog(
   BuildContext context, {
   Widget? title,
   Widget? content,
+  bool isCancelButtonEnable = true,
 }) async {
   return await showDialog<bool>(
         context: context,
@@ -11,6 +12,7 @@ Future<bool> showConfirmDialog(
           return ConfirmDialog(
             title: title,
             content: content,
+            isCancelButtonEnable: isCancelButtonEnable,
           );
         },
       ) ??
@@ -22,10 +24,12 @@ class ConfirmDialog extends StatelessWidget {
     super.key,
     this.title,
     this.content,
+    required this.isCancelButtonEnable,
   });
 
   final Widget? title;
   final Widget? content;
+  final bool isCancelButtonEnable;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +37,13 @@ class ConfirmDialog extends StatelessWidget {
       title: title,
       content: content,
       actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context, false);
-          },
-          child: const Text('キャンセル'),
-        ),
+        if (isCancelButtonEnable)
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+            child: const Text('キャンセル'),
+          ),
         TextButton(
           onPressed: () {
             Navigator.pop(context, true);

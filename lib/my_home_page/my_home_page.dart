@@ -30,6 +30,8 @@ class MyHomePage extends HookWidget {
             const Gap(20),
             _OnlyDialogButton(boxColor: boxColor),
             const Gap(20),
+            const _OnlyDialogButtonWithOnlyOK(),
+            const Gap(20),
             _OnlySnackBar(boxColor: boxColor),
             const Gap(20),
             _DialogAndSnackBarButton(boxColor: boxColor),
@@ -100,6 +102,28 @@ class _OnlyDialogButton extends StatelessWidget {
         }
       },
       child: const Text('ダイアログだけ：赤色に変更'),
+    );
+  }
+}
+
+class _OnlyDialogButtonWithOnlyOK extends StatelessWidget {
+  const _OnlyDialogButtonWithOnlyOK();
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        showConfirmDialog(
+          context,
+          title: const Text('お知らせ'),
+          content: const Text(
+            'このダイアログには特に意味がありません。'
+            'よって、キャンセルボタンがありません。',
+          ),
+          isCancelButtonEnable: false,
+        );
+      },
+      child: const Text('ダイアログだけ：何もしない'),
     );
   }
 }
