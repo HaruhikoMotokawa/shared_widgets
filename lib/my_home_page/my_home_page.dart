@@ -1,6 +1,7 @@
 import 'package:components_sample/shared_widgets/action_bottom_sheet.dart';
 import 'package:components_sample/shared_widgets/confirm_dialog.dart';
 import 'package:components_sample/shared_widgets/custom_snack_bar.dart';
+import 'package:components_sample/shared_widgets/notification_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -37,6 +38,8 @@ class MyHomePage extends HookWidget {
             _DialogAndSnackBarButton(boxColor: boxColor),
             const Gap(20),
             _AllButton(boxColor: boxColor),
+            const Gap(20),
+            const _NotificationSelectButton(),
           ],
         ),
       ),
@@ -245,6 +248,58 @@ class _AllButton extends StatelessWidget {
         );
       },
       child: const Text('全部の組み合わせ'),
+    );
+  }
+}
+
+class _NotificationSelectButton extends StatelessWidget {
+  const _NotificationSelectButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        showActionBottomSheet(
+          context,
+          actions: [
+            ActionItem(
+              icon: Icons.wifi_off,
+              text: '通信失敗',
+              onTap: () => showNotificationDialog(
+                context,
+                type: NotificationType.communicationFailure,
+              ),
+            ),
+            ActionItem(
+              icon: Icons.error_outline,
+              text: 'データの取得に失敗',
+              onTap: () => showNotificationDialog(
+                context,
+                type: NotificationType.dataRetrievalFailure,
+              ),
+            ),
+            ActionItem(
+              icon: Icons.download_done,
+              text: 'ダウンロード完了',
+              onTap: () => showNotificationDialog(
+                context,
+                type: NotificationType.finishDownload,
+              ),
+            ),
+            ActionItem(
+              icon: Icons.edit,
+              text: '独自に入力',
+              onTap: () => showNotificationDialog(
+                context,
+                title: const Text('アップロードの完了'),
+                content: const Text('クラウドへ写真データをアップロードしました。'),
+                doneButtonText: 'とじーーる',
+              ),
+            ),
+          ],
+        );
+      },
+      child: const Text('通知ダイアログ'),
     );
   }
 }
